@@ -12,10 +12,16 @@ class App {
     static void main(String[] args){
         UserInterface ui = config.userInterface()
 
+        Board board = new Board()
+        board.pieces.add(new Piece(1))
+        board.pieces.add(new Piece(2))
+        board.pieces.add(new Piece(1))
+        board.pieces.add(new Piece(2))
+        board.pieces.add(new Piece(1))
+        board.pieces.add(new Piece(2))
+
         ui.display("Hello")
-        ui.display("[][][][][][][]", BLUE)
-        ui.display("X X X X X", RED)
-        ui.display("O O O O O", YELLOW)
+        ui.showBoard(board)
         ui.display("World", WHITE)
     }
 }

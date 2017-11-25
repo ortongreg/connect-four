@@ -1,11 +1,15 @@
 package com.gorton.commandLine
 
+import com.gorton.Board
 import com.gorton.Color
+import com.gorton.Piece
 import com.gorton.config.UserInterface
 
 import static com.gorton.Color.*
 
 class CommandLineUserInterface implements UserInterface{
+
+    ConsoleWriter console = new ConsoleWriter()
 
     private static final String RESET = "\u001B[0m"
     private static final Map<Color, String> COLOR_CODES
@@ -18,11 +22,26 @@ class CommandLineUserInterface implements UserInterface{
     }
     @Override
     void display(String msg){
-        println msg
+        console.println(msg)
     }
 
     @Override
     void display(String msg, Color color){
-        println "${COLOR_CODES[color]}$msg$RESET"
+        console.println("${COLOR_CODES[color]}$msg$RESET")
+    }
+
+    @Override
+    void showBoard(Board board){
+        board.pieces.each{
+            console.print(slot(it))
+        }
+        console.print('\n')
+    }
+
+    private String slot(Piece piece){
+        Color color = piece.player == 1? RED: YELLOW
+        String token = piece.player == 1? "X": "O"
+        String pieceString = "${COLOR_CODES[color]}$token"
+        "${COLOR_CODES[BLUE]}[$pieceString${COLOR_CODES[BLUE]}]$RESET"
     }
 }
