@@ -32,10 +32,7 @@ class CommandLineUserInterface implements UserInterface{
 
     @Override
     void showBoard(Board board){
-        board.pieces.each{
-            console.print(slot(it))
-        }
-        console.print('\n')
+        console.println("HELLO")
     }
 
     private String slot(Piece piece){

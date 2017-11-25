@@ -43,9 +43,9 @@ class CommandLineUserInterfaceTest {
     @Test
     void showBoard_emptyBoard(){
         Board board = new Board()
-        board.pieces.add(new Piece(1))
+        board.drop(1, new Piece(1))
 
         ui.showBoard(board)
-        verify(mockConsole, times(2)).print(anyString())
+        verify(mockConsole,).println(anyString())
     }
 }
