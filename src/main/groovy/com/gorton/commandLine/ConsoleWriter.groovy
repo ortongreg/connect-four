@@ -1,10 +1,11 @@
 package com.gorton.commandLine
 
 class ConsoleWriter {
+
     void println(String msg){
-        println msg
+        System.out.println(msg)
     }
     void print(String msg){
-        print msg
+        System.out.print(msg)
     }
 }

@@ -13,12 +13,11 @@ class App {
         UserInterface ui = config.userInterface()
 
         Board board = new Board()
-        board.pieces.add(new Piece(1))
-        board.pieces.add(new Piece(2))
-        board.pieces.add(new Piece(1))
-        board.pieces.add(new Piece(2))
-        board.pieces.add(new Piece(1))
-        board.pieces.add(new Piece(2))
+        board.drop(1, new Piece(1))
+        board.drop(1, new Piece(2))
+        board.drop(2, new Piece(1))
+        board.drop(3, new Piece(2))
+        board.drop(3, new Piece(1))
 
         ui.display("Hello")
         ui.showBoard(board)

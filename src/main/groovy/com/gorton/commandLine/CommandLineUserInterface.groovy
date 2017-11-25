@@ -32,12 +32,24 @@ class CommandLineUserInterface implements UserInterface{
 
     @Override
     void showBoard(Board board){
-        console.println("HELLO")
+        (5..0).each {
+            console.println(row(board.row(it)))
+        }
+    }
+
+    private String row(List<Piece> row){
+        String result = ""
+        row.each {result += slot(it)}
+        result
     }
 
     private String slot(Piece piece){
-        Color color = piece.player == 1? RED: YELLOW
-        String token = piece.player == 1? "X": "O"
+        Color color = WHITE
+        String token = " "
+        if( piece != null ){
+            color = piece.player == 1? RED: YELLOW
+            token = piece.player == 1? "X": "O"
+        }
         String pieceString = "${COLOR_CODES[color]}$token"
         "${COLOR_CODES[BLUE]}[$pieceString${COLOR_CODES[BLUE]}]$RESET"
     }

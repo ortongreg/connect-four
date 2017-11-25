@@ -39,13 +39,4 @@ class CommandLineUserInterfaceTest {
         String expected = "\u001B[34m$TEST\u001B[0m"
         verify(mockConsole).println(expected)
     }
-
-    @Test
-    void showBoard_emptyBoard(){
-        Board board = new Board()
-        board.drop(1, new Piece(1))
-
-        ui.showBoard(board)
-        verify(mockConsole,).println(anyString())
-    }
 }
