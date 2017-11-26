@@ -33,6 +33,7 @@ class CommandLineUserInterface implements UserInterface{
 
     @Override
     void showBoard(Board board){
+        console.println('')
         console.println(ROW_KEYS)
         (5..0).each {
             console.println(row(board.row(it)))

@@ -56,6 +56,7 @@ class CommandLineUserInterface_ShowBoardTest {
                 exSlot(new Piece(2)) +
                 exSlot(new Piece(1)) +
                 exSlot(new Piece(2))
+        inOrder.verify(console).println('')
         inOrder.verify(console).println(ROW_KEYS)
         inOrder.verify(console).println(secondRow)
         inOrder.verify(console).println(firstRow)
@@ -71,8 +72,9 @@ class CommandLineUserInterface_ShowBoardTest {
         String emptyRow = ""
         (1..7).each {emptyRow +=
                 "$BLUE[ $BLUE]$RESET"}
-        verify(console, times(6)).println(emptyRow)
+        verify(console).println('')
         verify(console).println(ROW_KEYS)
+        verify(console, times(6)).println(emptyRow)
     }
 
     String exSlot(Piece piece){
