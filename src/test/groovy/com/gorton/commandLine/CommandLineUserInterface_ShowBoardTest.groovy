@@ -1,6 +1,7 @@
 package com.gorton.commandLine
 
 import com.gorton.Board
+import com.gorton.Color
 import com.gorton.Piece
 import org.junit.Before
 import org.junit.Test
@@ -9,6 +10,7 @@ import org.mockito.InOrder
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
+import static com.gorton.Color.*
 import static org.mockito.Mockito.*
 
 @RunWith(MockitoJUnitRunner.class)
@@ -35,7 +37,8 @@ class CommandLineUserInterface_ShowBoardTest {
         int count = 0
         (0..5).each {row ->
             (1..7).each{ col ->
-                board.drop(col, new Piece(count%2 +1))
+                Color color = count%2 == 0? RED : BLACK
+                board.drop(col, new Piece(color))
                 count++
             }
         }
@@ -44,22 +47,22 @@ class CommandLineUserInterface_ShowBoardTest {
 
         InOrder inOrder = inOrder(console)
         String firstRow = WHITE_BG +
-                exSlot(new Piece(1)) +
-                exSlot(new Piece(2)) +
-                exSlot(new Piece(1)) +
-                exSlot(new Piece(2)) +
-                exSlot(new Piece(1)) +
-                exSlot(new Piece(2)) +
-                exSlot(new Piece(1)) +
+                exSlot(new Piece(RED)) +
+                exSlot(new Piece(BLACK)) +
+                exSlot(new Piece(RED)) +
+                exSlot(new Piece(BLACK)) +
+                exSlot(new Piece(RED)) +
+                exSlot(new Piece(BLACK)) +
+                exSlot(new Piece(RED)) +
                 RESET
         String secondRow =  WHITE_BG +
-                exSlot(new Piece(2)) +
-                exSlot(new Piece(1)) +
-                exSlot(new Piece(2)) +
-                exSlot(new Piece(1)) +
-                exSlot(new Piece(2)) +
-                exSlot(new Piece(1)) +
-                exSlot(new Piece(2)) +
+                exSlot(new Piece(BLACK)) +
+                exSlot(new Piece(RED)) +
+                exSlot(new Piece(BLACK)) +
+                exSlot(new Piece(RED)) +
+                exSlot(new Piece(BLACK)) +
+                exSlot(new Piece(RED)) +
+                exSlot(new Piece(BLACK)) +
                 RESET
         inOrder.verify(console).println('')
         inOrder.verify(console).println(ROW_KEYS)
@@ -84,11 +87,11 @@ class CommandLineUserInterface_ShowBoardTest {
     }
 
     String exSlot(Piece piece){
-        String colorCode = piece.player == 1 ? "\u001B[31m" : "\u001B[30m"
+        String colorCode = piece.color == RED ? "\u001B[31m" : "\u001B[30m"
         String token = " "
-        if(piece.player == 1){
+        if(piece.color == RED){
             token = "X"
-        }else if(piece.player == 2){
+        }else if(piece.color == BLACK){
             token = "O"
         }
         "$BLUE[$colorCode$token$BLUE]"

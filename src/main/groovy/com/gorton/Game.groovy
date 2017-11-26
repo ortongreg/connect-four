@@ -4,6 +4,8 @@ import com.gorton.config.Config
 import com.gorton.config.UserInterface
 import com.gorton.errors.InvalidColumnException
 
+import static com.gorton.Color.*
+
 class Game {
     private UserInterface ui
     String playerOne
@@ -45,7 +47,7 @@ class Game {
         try{
             String move = ui.promptForInput(prompt)
             if(move.isInteger()){
-                board.drop(new Integer(move), new Piece(isPlayerOnesTurn? 1:2))
+                board.drop(new Integer(move), new Piece(isPlayerOnesTurn? RED : BLACK))
                 isPlayerOnesTurn = !isPlayerOnesTurn
             }else{
                 throw new InvalidColumnException(99)

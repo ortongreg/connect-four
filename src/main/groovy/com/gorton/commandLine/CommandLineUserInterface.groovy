@@ -60,8 +60,8 @@ class CommandLineUserInterface implements UserInterface{
         Color color = WHITE
         String token = " "
         if( piece != null ){
-            color = piece.player == 1? RED: BLACK
-            token = piece.player == 1? "X": "O"
+            color = piece.color
+            token = color == RED? "X": "O"
         }
         String pieceString = "${COLOR_CODES[color]}$token"
         "${COLOR_CODES[BLUE]}[$pieceString${COLOR_CODES[BLUE]}]"

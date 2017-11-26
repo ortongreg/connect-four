@@ -5,6 +5,8 @@ import com.gorton.errors.InvalidColumnException
 import org.junit.Before
 import org.junit.Test
 
+import static com.gorton.Color.*
+
 
 class BoardTest {
     Board board
@@ -24,17 +26,17 @@ class BoardTest {
 
     @Test(expected = InvalidColumnException.class)
     void drop_Zero_invalid(){
-        board.drop(0, new Piece(1))
+        board.drop(0, new Piece(RED))
     }
 
     @Test(expected = InvalidColumnException.class)
     void drop_eight_invalid(){
-        board.drop(8, new Piece(1))
+        board.drop(8, new Piece(RED))
     }
 
     @Test
     void drop_firstColumn(){
-        Piece expected = new Piece(1)
+        Piece expected = new Piece(RED)
         board.drop(1, expected)
 
         assert expected == board.columns[0][0]
@@ -42,7 +44,7 @@ class BoardTest {
 
     @Test
     void drop_seventhColumn(){
-        Piece expected = new Piece(1)
+        Piece expected = new Piece(RED)
         board.drop(7, expected)
 
         assert expected == board.columns[6][0]
@@ -50,18 +52,18 @@ class BoardTest {
 
     @Test
     void drop_sixSameColumn_allowed(){
-        (1..6).each {board.drop(1, new Piece(1))}
+        (1..6).each {board.drop(1, new Piece(RED))}
         assert 6 == board.columns[0].size()
     }
 
     @Test(expected = FullColumnException.class)
     void drop_sevenSameColumn_NotAllowed(){
-        (1..7).each {board.drop(1, new Piece(1))}
+        (1..7).each {board.drop(1, new Piece(RED))}
     }
 
     @Test
     void row_bottomRow_full(){
-        (1..7).each {board.drop(it, new Piece(1))}
+        (1..7).each {board.drop(it, new Piece(RED))}
 
         List<Piece> row0 = board.row(0)
         assert 7 == row0.size()
@@ -70,7 +72,7 @@ class BoardTest {
 
     @Test
     void row_secondRow_empty(){
-        (1..7).each {board.drop(it, new Piece(1))}
+        (1..7).each {board.drop(it, new Piece(RED))}
 
         List<Piece> row1 = board.row(1)
         assert 7 == row1.size()
@@ -79,8 +81,8 @@ class BoardTest {
 
     @Test
     void row_secondRow_partialFull(){
-        (1..7).each {board.drop(it, new Piece(1))}
-        board.drop(4, new Piece(2))
+        (1..7).each {board.drop(it, new Piece(RED))}
+        board.drop(4, new Piece(BLACK))
 
         List<Piece> row0 = board.row(0)
         assert 7 == row0.size()

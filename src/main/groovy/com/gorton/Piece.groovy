@@ -1,9 +1,9 @@
 package com.gorton
 
 class Piece{
-    int player
+    Color color
 
-    Piece(int player){
-        this.player = player
+    Piece(Color color){
+        this.color = color
     }
 }
