@@ -1,4 +1,6 @@
-package com.gorton
+package com.gorton.judge
+
+import com.gorton.Board
 
 class Judge{
     /*

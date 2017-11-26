@@ -4,6 +4,7 @@ import com.gorton.config.Config
 import com.gorton.config.UserInterface
 import com.gorton.errors.FullColumnException
 import com.gorton.errors.InvalidColumnException
+import com.gorton.judge.Judge
 
 import static com.gorton.Color.*
 
