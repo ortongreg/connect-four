@@ -10,6 +10,5 @@ class App {
 
     static void main(String[] args){
         Game game = new Game(config)
-        game.gameOn()
     }
 }

@@ -7,32 +7,36 @@ class Game {
     private UserInterface ui
     String playerOne
     String playerTwo
+    boolean isPlayerOnesTurn = true
+    Board board
 
     Game(Config config){
         ui = config.userInterface()
-        String play = ui.promptForInput("Would you like to play a new game? [y/n]")
-        if( 'y' != play){
-            ui.quit()
-        }
         initGame()
     }
 
     void initGame(){
+        String play = ui.promptForInput("Would you like to play a new game? [y/n]")
+        if( 'y' != play){
+            ui.quit()
+        }
+
         playerOne = ui.promptForInput("Player One, what is your name?")
         playerTwo = ui.promptForInput("Player Two, what is your name?")
+        board = new Board()
+        gameOn()
     }
 
     void gameOn() {
-        Board board = new Board()
-        board.drop(1, new Piece(1))
-        board.drop(1, new Piece(2))
-        board.drop(2, new Piece(1))
-        board.drop(3, new Piece(2))
-        board.drop(3, new Piece(1))
+        playMove()
+        playMove()
+    }
 
+    void playMove(){
         ui.showBoard(board)
-        String i = ui.promptForInput("HELLO")
-        ui.println("val = $i")
+        String prompt = String.format("%s, Choose a column [1-7]", isPlayerOnesTurn? playerOne: playerTwo)
+        String move = ui.promptForInput(prompt)
+        isPlayerOnesTurn = !isPlayerOnesTurn
 
     }
 }

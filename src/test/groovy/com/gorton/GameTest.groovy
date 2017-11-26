@@ -5,6 +5,7 @@ import com.gorton.config.UserInterface
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.InOrder
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
@@ -65,5 +66,18 @@ class GameTest {
         game = new Game(config)
         assert PLAYER_ONE == game.playerOne
         assert PLAYER_TWO == game.playerTwo
+        assert game.isPlayerOnesTurn
+    }
+
+    @Test
+    void goPlayerTwo(){
+        when(ui.promptForInput(NEW_GAME)).thenReturn("Y")
+        when(ui.promptForInput("$PLAYER_ONE, Choose a column [1-7]")).thenReturn("1")
+        game = new Game(config)
+        InOrder inOrder = inOrder(ui)
+        inOrder.verify(ui).showBoard(any(Board))
+        inOrder.verify(ui).promptForInput("$PLAYER_ONE, Choose a column [1-7]")
+        inOrder.verify(ui).showBoard(any(Board))
+        inOrder.verify(ui).promptForInput("$PLAYER_TWO, Choose a column [1-7]")
     }
 }
