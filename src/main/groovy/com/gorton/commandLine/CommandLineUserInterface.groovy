@@ -11,6 +11,7 @@ class CommandLineUserInterface implements UserInterface{
 
     ConsoleWriter console = new ConsoleWriter()
 
+    private static final String ROW_KEYS =  " 1  2  3  4  5  6  7"
     private static final String RESET = "\u001B[0m"
     private static final Map<Color, String> COLOR_CODES
     static {
@@ -32,6 +33,7 @@ class CommandLineUserInterface implements UserInterface{
 
     @Override
     void showBoard(Board board){
+        console.println(ROW_KEYS)
         (5..0).each {
             console.println(row(board.row(it)))
         }

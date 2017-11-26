@@ -7,7 +7,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.InOrder
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
 
 import static org.mockito.Mockito.*
@@ -15,6 +14,7 @@ import static org.mockito.Mockito.*
 @RunWith(MockitoJUnitRunner.class)
 class CommandLineUserInterface_ShowBoardTest {
 
+    static final String ROW_KEYS =  " 1  2  3  4  5  6  7"
     static final String BLUE = "\u001B[34m"
     static final String RESET = "\u001B[0m"
 
@@ -56,6 +56,7 @@ class CommandLineUserInterface_ShowBoardTest {
                 exSlot(new Piece(2)) +
                 exSlot(new Piece(1)) +
                 exSlot(new Piece(2))
+        inOrder.verify(console).println(ROW_KEYS)
         inOrder.verify(console).println(secondRow)
         inOrder.verify(console).println(firstRow)
         inOrder.verify(console).println(secondRow)
@@ -71,6 +72,7 @@ class CommandLineUserInterface_ShowBoardTest {
         (1..7).each {emptyRow +=
                 "$BLUE[ $BLUE]$RESET"}
         verify(console, times(6)).println(emptyRow)
+        verify(console).println(ROW_KEYS)
     }
 
     String exSlot(Piece piece){
