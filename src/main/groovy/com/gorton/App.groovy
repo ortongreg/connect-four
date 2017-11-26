@@ -10,5 +10,6 @@ class App {
 
     static void main(String[] args){
         Game game = new Game(config)
+        int winner = game.gameOn()
     }
 }

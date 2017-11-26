@@ -10,13 +10,20 @@ class Game {
     String playerTwo
     boolean isPlayerOnesTurn = true
     Board board
+    Judge judge
 
     Game(Config config){
+        this(config, new Judge())
+    }
+
+    protected Game(Config config, Judge judge){
         ui = config.userInterface()
+        this.judge = judge
         initGame()
     }
 
     void initGame(){
+        board = new Board()
         String play = ui.promptForInput("Would you like to play a new game? [y/n]")
         if( 'y' != play){
             ui.quit()
@@ -24,16 +31,14 @@ class Game {
 
         playerOne = ui.promptForInput("Player One, what is your name?")
         playerTwo = ui.promptForInput("Player Two, what is your name?")
-        board = new Board()
-        gameOn()
     }
 
-    void gameOn() {
-        playMove()
-        playMove()
+    int gameOn() {
+        int winner = playMove()
+        winner > 0? winner : gameOn()
     }
 
-    void playMove(){
+    int playMove(){
         ui.showBoard(board)
         String prompt = String.format("%s, Choose a column [1-7]", isPlayerOnesTurn? playerOne: playerTwo)
 
@@ -48,6 +53,6 @@ class Game {
         }catch (InvalidColumnException e){
             playMove()
         }
-
+        judge.winner(board)
     }
 }

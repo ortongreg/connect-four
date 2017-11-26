@@ -22,6 +22,7 @@ class GameTest {
     Game game
     @Mock Config config
     @Mock UserInterface ui
+    @Mock Judge judge
 
     @Before
     void setUp(){
@@ -33,13 +34,15 @@ class GameTest {
         when(ui.promptForInput(PLAYER_TWO_PROMPT)).thenReturn(PLAYER_TWO)
         when(ui.promptForInput("$PLAYER_ONE, Choose a column [1-7]")).thenReturn("1")
         when(ui.promptForInput("$PLAYER_TWO, Choose a column [1-7]")).thenReturn("2")
+
+        when(judge.winner(any(Board))).thenReturn(0,1)
     }
 
     @Test
     void startNewGame_lowerCase(){
         when(ui.promptForInput(NEW_GAME)).thenReturn("y")
 
-        game = new Game(config)
+        game = new Game(config, judge)
 
         verify(ui).promptForInput(NEW_GAME)
         verify(ui).promptForInput(PLAYER_ONE_PROMPT)
@@ -49,7 +52,7 @@ class GameTest {
     void startNewGame_upperCase(){
         when(ui.promptForInput(NEW_GAME)).thenReturn("Y")
 
-        game = new Game(config)
+        game = new Game(config, judge)
 
         verify(ui).promptForInput(NEW_GAME)
         verify(ui).promptForInput(PLAYER_ONE_PROMPT)
@@ -58,14 +61,14 @@ class GameTest {
     @Test
     void startNewGame_notY(){
         when(ui.promptForInput(NEW_GAME)).thenReturn("n")
-        game = new Game(config)
+        game = new Game(config, judge)
         verify(ui).quit()
     }
 
     @Test
     void initGame(){
         when(ui.promptForInput(NEW_GAME)).thenReturn("Y")
-        game = new Game(config)
+        game = new Game(config, judge)
         assert PLAYER_ONE == game.playerOne
         assert PLAYER_TWO == game.playerTwo
         assert game.isPlayerOnesTurn
@@ -76,7 +79,8 @@ class GameTest {
         when(ui.promptForInput(NEW_GAME)).thenReturn("Y")
         when(ui.promptForInput("$PLAYER_ONE, Choose a column [1-7]")).thenReturn("1")
         when(ui.promptForInput("$PLAYER_TWO, Choose a column [1-7]")).thenReturn("7")
-        game = new Game(config)
+        game = new Game(config, judge)
+        game.gameOn()
 
         List<Piece> row = game.board.row(0)
         assert 7 == row.size()
@@ -95,7 +99,8 @@ class GameTest {
     void invalidMove_0(){
         when(ui.promptForInput(NEW_GAME)).thenReturn("Y")
         when(ui.promptForInput("$PLAYER_ONE, Choose a column [1-7]")).thenReturn("0", "1")
-        game = new Game(config)
+        game = new Game(config, judge)
+        game.gameOn()
         verify(ui, times(2)).promptForInput("$PLAYER_ONE, Choose a column [1-7]")
     }
 
@@ -103,7 +108,8 @@ class GameTest {
     void invalidMove_8(){
         when(ui.promptForInput(NEW_GAME)).thenReturn("Y")
         when(ui.promptForInput("$PLAYER_ONE, Choose a column [1-7]")).thenReturn("8", "1")
-        game = new Game(config)
+        game = new Game(config, judge)
+        game.gameOn()
         verify(ui, times(2)).promptForInput("$PLAYER_ONE, Choose a column [1-7]")
     }
 
@@ -111,7 +117,8 @@ class GameTest {
     void invalidMove_NotAnumber(){
         when(ui.promptForInput(NEW_GAME)).thenReturn("Y")
         when(ui.promptForInput("$PLAYER_ONE, Choose a column [1-7]")).thenReturn("FOO", "1")
-        game = new Game(config)
+        game = new Game(config, judge)
+        game.gameOn()
         verify(ui, times(2)).promptForInput("$PLAYER_ONE, Choose a column [1-7]")
     }
 }
