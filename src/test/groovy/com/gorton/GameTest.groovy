@@ -31,6 +31,8 @@ class GameTest {
 
         when(ui.promptForInput(PLAYER_ONE_PROMPT)).thenReturn(PLAYER_ONE)
         when(ui.promptForInput(PLAYER_TWO_PROMPT)).thenReturn(PLAYER_TWO)
+        when(ui.promptForInput("$PLAYER_ONE, Choose a column [1-7]")).thenReturn("1")
+        when(ui.promptForInput("$PLAYER_TWO, Choose a column [1-7]")).thenReturn("2")
     }
 
     @Test
@@ -73,11 +75,36 @@ class GameTest {
     void goPlayerTwo(){
         when(ui.promptForInput(NEW_GAME)).thenReturn("Y")
         when(ui.promptForInput("$PLAYER_ONE, Choose a column [1-7]")).thenReturn("1")
+        when(ui.promptForInput("$PLAYER_TWO, Choose a column [1-7]")).thenReturn("7")
         game = new Game(config)
         InOrder inOrder = inOrder(ui)
         inOrder.verify(ui).showBoard(any(Board))
         inOrder.verify(ui).promptForInput("$PLAYER_ONE, Choose a column [1-7]")
         inOrder.verify(ui).showBoard(any(Board))
         inOrder.verify(ui).promptForInput("$PLAYER_TWO, Choose a column [1-7]")
+    }
+
+    @Test
+    void invalidMove_0(){
+        when(ui.promptForInput(NEW_GAME)).thenReturn("Y")
+        when(ui.promptForInput("$PLAYER_ONE, Choose a column [1-7]")).thenReturn("0", "1")
+        game = new Game(config)
+        verify(ui, times(2)).promptForInput("$PLAYER_ONE, Choose a column [1-7]")
+    }
+
+    @Test
+    void invalidMove_8(){
+        when(ui.promptForInput(NEW_GAME)).thenReturn("Y")
+        when(ui.promptForInput("$PLAYER_ONE, Choose a column [1-7]")).thenReturn("8", "1")
+        game = new Game(config)
+        verify(ui, times(2)).promptForInput("$PLAYER_ONE, Choose a column [1-7]")
+    }
+
+    @Test
+    void invalidMove_NotAnumber(){
+        when(ui.promptForInput(NEW_GAME)).thenReturn("Y")
+        when(ui.promptForInput("$PLAYER_ONE, Choose a column [1-7]")).thenReturn("FOO", "1")
+        game = new Game(config)
+        verify(ui, times(2)).promptForInput("$PLAYER_ONE, Choose a column [1-7]")
     }
 }
