@@ -77,6 +77,13 @@ class GameTest {
         when(ui.promptForInput("$PLAYER_ONE, Choose a column [1-7]")).thenReturn("1")
         when(ui.promptForInput("$PLAYER_TWO, Choose a column [1-7]")).thenReturn("7")
         game = new Game(config)
+
+        List<Piece> row = game.board.row(0)
+        assert 7 == row.size()
+        assert row[0] != null
+        (1..5).each { assert row[it] == null}
+        assert row[6] != null
+
         InOrder inOrder = inOrder(ui)
         inOrder.verify(ui).showBoard(any(Board))
         inOrder.verify(ui).promptForInput("$PLAYER_ONE, Choose a column [1-7]")
