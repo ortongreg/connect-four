@@ -2,6 +2,7 @@ package com.gorton
 
 import com.gorton.config.Config
 import com.gorton.config.UserInterface
+import com.gorton.errors.FullColumnException
 import com.gorton.errors.InvalidColumnException
 
 import static com.gorton.Color.*
@@ -37,6 +38,12 @@ class Game {
 
     int gameOn() {
         int winner = playMove()
+        if(winner == -1){
+            ui.display("It's a tie!")
+            ui.showBoard(board)
+            initGame()
+            return gameOn()
+        }
         winner > 0? winner : gameOn()
     }
 
@@ -53,6 +60,9 @@ class Game {
                 throw new InvalidColumnException(99)
             }
         }catch (InvalidColumnException e){
+            playMove()
+        }catch (FullColumnException e){
+            ui.display(e.message, RED)
             playMove()
         }
         judge.winner(board)

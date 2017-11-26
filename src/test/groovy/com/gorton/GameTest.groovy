@@ -2,6 +2,8 @@ package com.gorton
 
 import com.gorton.config.Config
 import com.gorton.config.UserInterface
+import com.gorton.errors.FullColumnException
+import com.gorton.errors.InvalidColumnException
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -9,6 +11,7 @@ import org.mockito.InOrder
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
+import static com.gorton.Color.*
 import static org.mockito.Mockito.*
 
 @RunWith(MockitoJUnitRunner.class)
@@ -105,6 +108,17 @@ class GameTest {
     }
 
     @Test
+    void tieGame(){
+        when(judge.winner(any(Board))).thenReturn(-1,1)
+        game = new Game(config, judge)
+        int winner = game.gameOn()
+        assert 1 == winner
+        verify(ui, times(2)).promptForInput(NEW_GAME)
+        verify(ui, times(3)).showBoard(any(Board))
+        verify(ui).display("It's a tie!")
+    }
+
+    @Test
     void invalidMove_8(){
         when(ui.promptForInput(NEW_GAME)).thenReturn("Y")
         when(ui.promptForInput("$PLAYER_ONE, Choose a column [1-7]")).thenReturn("8", "1")
@@ -121,4 +135,17 @@ class GameTest {
         game.gameOn()
         verify(ui, times(2)).promptForInput("$PLAYER_ONE, Choose a column [1-7]")
     }
+
+    @Test
+    void invalidMove_ColumnFull(){
+        when(ui.promptForInput(NEW_GAME)).thenReturn("Y")
+        when(ui.promptForInput("$PLAYER_ONE, Choose a column [1-7]"))
+                .thenThrow(new FullColumnException(7))
+                .thenReturn("1")
+        game = new Game(config, judge)
+        game.gameOn()
+        verify(ui, times(1)).display("Column 7 is full", RED)
+        verify(ui, times(2)).promptForInput("$PLAYER_ONE, Choose a column [1-7]")
+    }
+
 }
