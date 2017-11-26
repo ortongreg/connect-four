@@ -5,6 +5,8 @@ import com.gorton.config.UserInterface
 
 class Game {
     private UserInterface ui
+    String playerOne
+    String playerTwo
 
     Game(Config config){
         ui = config.userInterface()
@@ -12,7 +14,11 @@ class Game {
         if( 'y' != play){
             ui.quit()
         }
-        String playerOne = ui.promptForInput("Player One, what is your name?")
+        initGame()
+    }
+
+    void initGame(){
+        playerOne = ui.promptForInput("Player One, what is your name?")
     }
 
     void gameOn() {
