@@ -14,7 +14,10 @@ import static org.mockito.Mockito.*
 class GameTest {
 
     public static final String NEW_GAME = "Would you like to play a new game? [y/n]"
-    public static final String PLAYER_ONE = "Player One, what is your name?"
+    public static final String PLAYER_ONE_PROMPT = "Player One, what is your name?"
+    public static final String PLAYER_TWO_PROMPT = "Player Two, what is your name?"
+    public static final String PLAYER_ONE = "P One"
+    public static final String PLAYER_TWO = "Twoster"
     Game game
     @Mock Config config
     @Mock UserInterface ui
@@ -22,6 +25,11 @@ class GameTest {
     @Before
     void setUp(){
         when(config.userInterface()).thenReturn(ui)
+
+        when(ui.promptForInput(NEW_GAME)).thenReturn("Y")
+
+        when(ui.promptForInput(PLAYER_ONE_PROMPT)).thenReturn(PLAYER_ONE)
+        when(ui.promptForInput(PLAYER_TWO_PROMPT)).thenReturn(PLAYER_TWO)
     }
 
     @Test
@@ -31,7 +39,7 @@ class GameTest {
         game = new Game(config)
 
         verify(ui).promptForInput(NEW_GAME)
-        verify(ui).promptForInput(PLAYER_ONE)
+        verify(ui).promptForInput(PLAYER_ONE_PROMPT)
     }
 
     @Test
@@ -41,7 +49,7 @@ class GameTest {
         game = new Game(config)
 
         verify(ui).promptForInput(NEW_GAME)
-        verify(ui).promptForInput(PLAYER_ONE)
+        verify(ui).promptForInput(PLAYER_ONE_PROMPT)
     }
 
     @Test
@@ -49,5 +57,13 @@ class GameTest {
         when(ui.promptForInput(NEW_GAME)).thenReturn("n")
         game = new Game(config)
         verify(ui).quit()
+    }
+
+    @Test
+    void initGame(){
+        when(ui.promptForInput(NEW_GAME)).thenReturn("Y")
+        game = new Game(config)
+        assert PLAYER_ONE == game.playerOne
+        assert PLAYER_TWO == game.playerTwo
     }
 }

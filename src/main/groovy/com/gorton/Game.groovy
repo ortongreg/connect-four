@@ -19,6 +19,7 @@ class Game {
 
     void initGame(){
         playerOne = ui.promptForInput("Player One, what is your name?")
+        playerTwo = ui.promptForInput("Player Two, what is your name?")
     }
 
     void gameOn() {
