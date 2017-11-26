@@ -8,4 +8,7 @@ interface UserInterface {
     void display(String msg, Color color)
 
     void showBoard(Board board)
+    String promptForInput(String prompt)
+
+    void quit()
 }

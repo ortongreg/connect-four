@@ -3,14 +3,16 @@ package com.gorton
 import com.gorton.config.Config
 import com.gorton.config.UserInterface
 
-import static com.gorton.Color.WHITE
-
-
 class Game {
     private UserInterface ui
+
     Game(Config config){
         ui = config.userInterface()
-        ui.display("Connect Four!")
+        String play = ui.promptForInput("Would you like to play a new game? [y/n]")
+        if( 'y' != play){
+            ui.quit()
+        }
+        String playerOne = ui.promptForInput("Player One, what is your name?")
     }
 
     void gameOn() {
@@ -22,6 +24,8 @@ class Game {
         board.drop(3, new Piece(1))
 
         ui.showBoard(board)
+        String i = ui.promptForInput("HELLO")
+        ui.println("val = $i")
 
     }
 }

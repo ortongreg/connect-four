@@ -40,6 +40,14 @@ class CommandLineUserInterface implements UserInterface{
         }
     }
 
+    String promptForInput(String prompt) {
+        return console.input("$prompt: ")
+    }
+
+    void quit() {
+        console.quit()
+    }
+
     private String row(List<Piece> row){
         String result = ""
         row.each {result += slot(it)}
