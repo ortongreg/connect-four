@@ -10,6 +10,8 @@ class App {
 
     static void main(String[] args){
         Game game = new Game(config)
-        game.gameOn()
+        while(true){
+            Color winner = game.playGame()
+        }
     }
 }

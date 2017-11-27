@@ -1,19 +1,22 @@
 package com.gorton.judge
 
 import com.gorton.Board
+import com.gorton.Color
+
+import static com.gorton.Color.*
 
 class Judge{
     /*
-    returns -1 for tie
-            0 for no winner yet
-            1 for RED
-            2 for BLACK
+    returns BLUE for tie
+            WHITE for no winner yet
+            RED for RED
+            BLACK for BLACK
      */
-    int winner(Board board){
+    Color winner(Board board){
         boolean full = true
         board.columns.each {
             full = full && it.size() == 6
         }
-        full? -1:0
+        full? BLUE:WHITE
     }
 }

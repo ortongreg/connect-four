@@ -28,7 +28,7 @@ class Game {
         playerTwo = ui.promptForInput("Player Two, what is your name?")
     }
 
-    int playGame(){
+    Color playGame(){
         board = new Board()
         isPlayerOnesTurn = true
         String play = ui.promptForInput("Would you like to play a new game? [y/n]")
@@ -38,12 +38,12 @@ class Game {
         gameOn()
     }
 
-    private int gameOn() {
-        int winner = playMove()
-        winner != 0? winner : gameOn()
+    private Color gameOn() {
+        Color winner = playMove()
+        winner != WHITE? winner : gameOn()
     }
 
-    private int playMove(){
+    private Color playMove(){
         ui.showBoard(board)
         String prompt = String.format("%s, Choose a column [1-7]", isPlayerOnesTurn? playerOne: playerTwo)
 

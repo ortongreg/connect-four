@@ -40,7 +40,7 @@ class GameTest {
         when(ui.promptForInput(CHOOSE_P_ONE)).thenReturn("1")
         when(ui.promptForInput(CHOOSE_P_TWO)).thenReturn("2")
 
-        when(judge.winner(any(Board))).thenReturn(0,1)
+        when(judge.winner(any(Board))).thenReturn(WHITE,RED)
     }
 
     @Test
@@ -56,7 +56,7 @@ class GameTest {
     @Test
     void startNewGame_upperCase(){
         when(ui.promptForInput(NEW_GAME)).thenReturn("Y")
-        when(judge.winner(any(Board))).thenReturn(1)
+        when(judge.winner(any(Board))).thenReturn(RED)
 
         game = new Game(config, judge)
         game.playGame()
@@ -113,10 +113,10 @@ class GameTest {
 
     @Test
     void tieGame(){
-        when(judge.winner(any(Board))).thenReturn(-1)
+        when(judge.winner(any(Board))).thenReturn(BLUE)
         game = new Game(config, judge)
-        int winner = game.playGame()
-        assert -1 == winner
+        Color winner = game.playGame()
+        assert BLUE == winner
     }
 
     @Test
@@ -152,7 +152,7 @@ class GameTest {
     @Test
     void secondGame_doNotPromptForNames(){
         when(ui.promptForInput(NEW_GAME)).thenReturn("Y")
-        when(judge.winner(any(Board))).thenReturn(0,1)
+        when(judge.winner(any(Board))).thenReturn(WHITE,RED)
 
         game = new Game(config, judge)
         game.playGame()
@@ -164,7 +164,7 @@ class GameTest {
     @Test
     void secondGame_playerOneStarts(){
         when(ui.promptForInput(NEW_GAME)).thenReturn("Y")
-        when(judge.winner(any(Board))).thenReturn(0,0,2)
+        when(judge.winner(any(Board))).thenReturn(WHITE,WHITE,BLUE)
         game = new Game(config, judge)
         game.playGame()
         game.playGame()
