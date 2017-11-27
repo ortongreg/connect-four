@@ -12,6 +12,10 @@ class App {
         Game game = new Game(config)
         while(true){
             Color winner = game.playGame()
+            config.userInterface().showBoard(game.board)
+            config.userInterface().display("GAME OVER")
+            String message = winner == Color.BLUE ? "Tie game!" : "${winner.name()} has won the Game!"
+            config.userInterface().display(message)
         }
     }
 }
