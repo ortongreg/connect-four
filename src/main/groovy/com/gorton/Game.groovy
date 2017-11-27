@@ -23,32 +23,27 @@ class Game {
     protected Game(Config config, Judge judge){
         ui = config.userInterface()
         this.judge = judge
-        initGame()
-    }
-
-    void initGame(){
-        board = new Board()
-        String play = ui.promptForInput("Would you like to play a new game? [y/n]")
-        if( 'y' != play){
-            ui.quit()
-        }
 
         playerOne = ui.promptForInput("Player One, what is your name?")
         playerTwo = ui.promptForInput("Player Two, what is your name?")
     }
 
-    int gameOn() {
-        int winner = playMove()
-        if(winner == -1){
-            ui.display("It's a tie!")
-            ui.showBoard(board)
-            initGame()
-            return gameOn()
+    int playGame(){
+        board = new Board()
+        isPlayerOnesTurn = true
+        String play = ui.promptForInput("Would you like to play a new game? [y/n]")
+        if( 'y' != play){
+            ui.quit()
         }
-        winner > 0? winner : gameOn()
+        gameOn()
     }
 
-    int playMove(){
+    private int gameOn() {
+        int winner = playMove()
+        winner != 0? winner : gameOn()
+    }
+
+    private int playMove(){
         ui.showBoard(board)
         String prompt = String.format("%s, Choose a column [1-7]", isPlayerOnesTurn? playerOne: playerTwo)
 
