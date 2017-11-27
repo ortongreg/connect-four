@@ -76,9 +76,21 @@ class GameTest {
     void initGame(){
         when(ui.promptForInput(NEW_GAME)).thenReturn("Y")
         game = new Game(config, judge)
+        game.playGame()
         assert PLAYER_ONE == game.playerOne
         assert PLAYER_TWO == game.playerTwo
         assert game.isPlayerOnesTurn
+    }
+
+    @Test
+    void showBoard(){
+        when(ui.promptForInput(NEW_GAME)).thenReturn("N")
+        game = new Game(config, judge)
+        game.playGame()
+        InOrder inOrder = inOrder(ui)
+        inOrder.verify(ui).showBoard(any(Board))
+        inOrder.verify(ui).promptForInput(NEW_GAME)
+
     }
 
     @Test

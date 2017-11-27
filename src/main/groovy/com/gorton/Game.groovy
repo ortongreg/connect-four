@@ -23,18 +23,18 @@ class Game {
     protected Game(Config config, Judge judge){
         ui = config.userInterface()
         this.judge = judge
-
-        playerOne = ui.promptForInput("Player One, what is your name?")
-        playerTwo = ui.promptForInput("Player Two, what is your name?")
     }
 
     Color playGame(){
         board = new Board()
+        ui.showBoard(board)
         isPlayerOnesTurn = true
         String play = ui.promptForInput("Would you like to play a new game? [y/n]")
         if( 'y' != play){
             ui.quit()
         }
+        playerOne = playerOne ?: ui.promptForInput("Player One, what is your name?")
+        playerTwo = playerTwo ?: ui.promptForInput("Player Two, what is your name?")
         gameOn()
     }
 
