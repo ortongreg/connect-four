@@ -19,4 +19,6 @@ class Judge{
         }
         full? BLUE:WHITE
     }
+
+
 }

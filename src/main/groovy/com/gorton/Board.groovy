@@ -26,4 +26,11 @@ class Board {
         }
         res
     }
+
+    Piece getAt(int col, int row){
+        if( columns[col].size() > row){
+            return columns[col][row]
+        }
+        null
+    }
 }
