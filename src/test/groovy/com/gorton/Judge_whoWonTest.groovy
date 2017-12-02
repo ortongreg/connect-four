@@ -48,6 +48,13 @@ class Judge_whoWonTest {
     }
 
     @Test
+    void whoWon_threeWontWin(){
+        List<Piece> winLines = [new Piece(BLACK), new Piece(BLACK), new Piece(BLACK)]
+        Color winner = judge.whoWon(winLines)
+        assert BLUE == winner
+    }
+
+    @Test
     void whoWon_stopOnWinner(){
         List<Piece> winLines = [new Piece(RED),new Piece(RED),new Piece(RED),new Piece(RED), new Piece(BLACK)]
         Color winner = judge.whoWon(winLines)
