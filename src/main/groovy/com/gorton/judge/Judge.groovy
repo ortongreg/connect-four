@@ -23,21 +23,22 @@ class Judge{
 
     Color whoWon(List<Piece> pieces) {
         !pieces.isEmpty()?
-            whoWonR(pieces.head(), pieces.tail(), 1):
+            whoWonR(pieces, 1):
             null
     }
 
-    private Color whoWonR(Piece check, List<Piece> pieces, int streak){
+    private Color whoWonR(List<Piece> pieces, int streak){
         Color winner
         if( streak==4){
-            winner = check.color
-        }else if( !pieces.isEmpty()){
-            if(pieces.head().color == check.color){
+            winner = pieces.head().color
+        }else if( !pieces.tail().isEmpty()){
+            Piece nextHead = pieces.tail().head()
+            if(pieces.head().color == nextHead.color){
                 streak++
             }else{
                 streak = 1
             }
-            winner = whoWonR(pieces.head(), pieces.tail(), streak)
+            winner = whoWonR(pieces.tail(), streak)
         }
         winner
     }
