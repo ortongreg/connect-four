@@ -40,6 +40,14 @@ class Judge_whoWonTest {
     }
 
     @Test
+    void whoWon_resetCount(){
+        List<Piece> winLines = [new Piece(BLACK), new Piece(BLACK), new Piece(BLACK),
+                                new Piece(RED),new Piece(RED)]
+        Color winner = judge.whoWon(winLines)
+        assert null == winner
+    }
+
+    @Test
     void whoWon_stopOnWinner(){
         List<Piece> winLines = [new Piece(RED),new Piece(RED),new Piece(RED),new Piece(RED), new Piece(BLACK)]
         Color winner = judge.whoWon(winLines)
