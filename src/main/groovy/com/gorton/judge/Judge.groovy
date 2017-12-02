@@ -22,16 +22,14 @@ class Judge{
     }
 
     Color whoWon(List<Piece> pieces) {
-        !pieces.isEmpty()?
-            whoWonR(pieces, 1):
-            null
+        whoWonR(pieces, 1)
     }
 
     private Color whoWonR(List<Piece> pieces, int streak){
-        Color winner
+        Color winner = BLUE
         if( streak==4){
             winner = pieces.head().color
-        }else if( !pieces.tail().isEmpty()){
+        }else if( !pieces.isEmpty() && !pieces.tail().isEmpty()){
             Piece nextHead = pieces.tail().head()
             if(pieces.head().color == nextHead.color){
                 streak++

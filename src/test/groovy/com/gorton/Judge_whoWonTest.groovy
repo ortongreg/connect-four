@@ -14,14 +14,14 @@ class Judge_whoWonTest {
     void whoWon_noInput(){
         List<Piece> winLines = []
         Color winner = judge.whoWon(winLines)
-        assert winner == null
+        assert BLUE == winner
     }
 
     @Test
     void whoWon_hasInput_noWinner(){
         List<Piece> winLines = [new Piece(RED), new Piece(BLACK)]
         Color winner = judge.whoWon(winLines)
-        assert winner == null
+        assert BLUE == winner
     }
 
     @Test
@@ -44,7 +44,7 @@ class Judge_whoWonTest {
         List<Piece> winLines = [new Piece(BLACK), new Piece(BLACK), new Piece(BLACK),
                                 new Piece(RED),new Piece(RED)]
         Color winner = judge.whoWon(winLines)
-        assert null == winner
+        assert BLUE == winner
     }
 
     @Test
