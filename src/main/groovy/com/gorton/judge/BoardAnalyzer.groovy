@@ -10,15 +10,10 @@ class BoardAnalyzer {
         List<List<Piece>> result = []
         result.addAll(board.columns)
         (0..5).each {result.add(board.row(it))}
-        (3..5).each {result.add(doDiagonalDown(board, it, 0))}
-        result.add(doDiagonalDown(board, 5, 2))
-        result.add(doDiagonalDown(board, 5, 3))
-        (0..3).each{
-            result.add(doDiagonalUp(board, 0, it))
-        }
-        (1..2).each{
-            result.add(doDiagonalUp(board, it, 0))
-        }
+        (3..4).each{result.add(doDiagonalDown(board, it, 0))}
+        (0..3).each{result.add(doDiagonalDown(board, 5, it))}
+        (0..2).each{result.add(doDiagonalUp(board, it, 0))}
+        (1..3).each{result.add(doDiagonalUp(board, 0, it))}
 
         result.findAll{hasAtLeastFourPieces(it)}
     }

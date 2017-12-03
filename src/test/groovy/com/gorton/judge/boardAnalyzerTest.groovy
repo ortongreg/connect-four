@@ -16,20 +16,21 @@ class boardAnalyzerTest {
             (1..6).each{ board.drop(col, p)}
         }
         List<List<Piece>> winLines = boardAnalyzer.winLines(board)
-        assert 24 == winLines.size()
+        assert 25 == winLines.size()
         (0..6).each {assert winLines[it].size() == 6}
         (7..12).each {assert winLines[it].size() == 7}
         assert winLines[13].size() == 4
         assert winLines[14].size() == 5
         assert winLines[15].size() == 6
-        assert winLines[16].size() == 5
-        assert winLines[17].size() == 4
-        assert winLines[18].size() == 6
+        assert winLines[16].size() == 6
+        assert winLines[17].size() == 5
+        assert winLines[18].size() == 4
         assert winLines[19].size() == 6
         assert winLines[20].size() == 5
         assert winLines[21].size() == 4
-        assert winLines[22].size() == 5
-        assert winLines[23].size() == 4
+        assert winLines[22].size() == 6
+        assert winLines[23].size() == 5
+        assert winLines[24].size() == 4
     }
 
     @Test
