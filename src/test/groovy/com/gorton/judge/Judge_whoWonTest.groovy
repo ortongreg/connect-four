@@ -1,6 +1,7 @@
-package com.gorton
+package com.gorton.judge
 
-import com.gorton.judge.Judge
+import com.gorton.Color
+import com.gorton.Piece
 import org.junit.Test
 
 import static com.gorton.Color.*
@@ -59,6 +60,13 @@ class Judge_whoWonTest {
         List<Piece> winLines = [new Piece(RED),new Piece(RED),new Piece(RED),new Piece(RED), new Piece(BLACK)]
         Color winner = judge.whoWon(winLines)
         assert RED == winner
+    }
+
+    @Test
+    void whoWon_nullMixedIn(){
+        List<Piece> winLines = [new Piece(RED), new Piece(RED), null, new Piece(RED), new Piece(RED)]
+        Color winner = judge.whoWon(winLines)
+        assert BLUE == winner
     }
 
 }

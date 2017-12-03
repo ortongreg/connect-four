@@ -28,7 +28,8 @@ class Judge{
     private Color whoWonR(List<Piece> pieces, int streak){
         if(pieces.isEmpty() || pieces.tail().isEmpty()) return BLUE
 
-        boolean nextMatchesHead = pieces.head().color == pieces.tail().head().color
+        boolean nextMatchesHead = pieces.head() != null && pieces.tail().head() != null &&
+                pieces.head().color == pieces.tail().head().color
 
         if(nextMatchesHead){
             streak++

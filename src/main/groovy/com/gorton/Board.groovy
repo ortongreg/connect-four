@@ -33,4 +33,19 @@ class Board {
         }
         null
     }
+
+    String toString(){
+        String s = ""
+        (0..5).each{
+            s+="${5-it}"
+            List<Piece> row = row(5-it)
+            (0..6).each{
+                s+= "[${row[it]!=null?"X":" "}]"
+            }
+            s+="\n"
+        }
+        s+="  0  1  2  3  4  5  6"
+        s
+    }
+
 }
