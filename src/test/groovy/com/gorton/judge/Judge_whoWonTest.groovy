@@ -15,14 +15,14 @@ class Judge_whoWonTest {
     void whoWon_noInput(){
         List<Piece> winLines = []
         Color winner = judge.whoWon(winLines)
-        assert BLUE == winner
+        assert WHITE == winner
     }
 
     @Test
     void whoWon_hasInput_noWinner(){
         List<Piece> winLines = [new Piece(RED), new Piece(BLACK)]
         Color winner = judge.whoWon(winLines)
-        assert BLUE == winner
+        assert WHITE == winner
     }
 
     @Test
@@ -45,14 +45,14 @@ class Judge_whoWonTest {
         List<Piece> winLines = [new Piece(BLACK), new Piece(BLACK), new Piece(BLACK),
                                 new Piece(RED),new Piece(RED)]
         Color winner = judge.whoWon(winLines)
-        assert BLUE == winner
+        assert WHITE == winner
     }
 
     @Test
     void whoWon_threeWontWin(){
         List<Piece> winLines = [new Piece(BLACK), new Piece(BLACK), new Piece(BLACK)]
         Color winner = judge.whoWon(winLines)
-        assert BLUE == winner
+        assert WHITE == winner
     }
 
     @Test
@@ -66,7 +66,7 @@ class Judge_whoWonTest {
     void whoWon_nullMixedIn(){
         List<Piece> winLines = [new Piece(RED), new Piece(RED), null, new Piece(RED), new Piece(RED)]
         Color winner = judge.whoWon(winLines)
-        assert BLUE == winner
+        assert WHITE == winner
     }
 
 }

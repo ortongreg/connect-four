@@ -13,12 +13,22 @@ class Judge{
             RED for RED
             BLACK for BLACK
      */
+    BoardAnalyzer boardAnalyzer = new BoardAnalyzer()
+
     Color winner(Board board){
         boolean full = true
         board.columns.each {
             full = full && it.size() == 6
         }
-        full? BLUE:WHITE
+        if(full) return BLUE
+
+        Color winner = WHITE
+        for(List<Piece> winLine: boardAnalyzer.winLines(board)){
+            winner = whoWon(winLine)
+            if(winner != WHITE) break
+        }
+        winner
+
     }
 
     Color whoWon(List<Piece> pieces) {
@@ -26,7 +36,7 @@ class Judge{
     }
 
     private Color whoWonR(List<Piece> pieces, int streak){
-        if(pieces.isEmpty() || pieces.tail().isEmpty()) return BLUE
+        if(pieces.isEmpty() || pieces.tail().isEmpty()) return WHITE
 
         boolean nextMatchesHead = pieces.head() != null && pieces.tail().head() != null &&
                 pieces.head().color == pieces.tail().head().color
